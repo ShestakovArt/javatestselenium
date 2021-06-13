@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
 
 import static org.junit.Assert.*;
 
-public class SberbankInsuranceTests {
+public class SberbankInsuranceTest {
     private WebDriver driver;
     private String baseUrl;
 
