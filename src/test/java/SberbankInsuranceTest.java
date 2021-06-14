@@ -1,5 +1,6 @@
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -10,6 +11,8 @@ import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import static org.junit.Assert.*;
+
+// Задание №1.
 
 public class SberbankInsuranceTest {
     private WebDriver driver;
@@ -25,13 +28,13 @@ public class SberbankInsuranceTest {
     }
 
     @Test
-    public void TestInsuranceFieldNotFilled(){
+    public void testInsuranceFieldNotFilled(){
         driver.get(baseUrl);
         driver.findElement(By.xpath("//input[@id = 'kitt-top-menu-8']/../a[contains(text(), 'Страхование')]")).click();
         driver.findElement(By.xpath("//a[contains(text(), 'Все страховые программы')]")).click();
 
         driver.findElement(By.xpath("//label[contains(text(), 'Путешествия')]")).click();
-        driver.findElement(By.xpath("//h3[contains(text(), 'путешественников')]/..")).click();
+        driver.findElement(By.xpath("//div[@class='uc-full__item']//*[contains(text(), 'Страхование для путешественников')]")).click();
 
         assertEquals("Страхование путешественников", driver.findElement(By.xpath("//h1[@data-test-id = 'PageTeaserDict_header']")).getText());
         driver.findElement(By.xpath("//a[@data-test-id ='PageTeaserDict_button']")).click();
