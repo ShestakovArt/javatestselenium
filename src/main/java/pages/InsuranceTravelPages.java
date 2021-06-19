@@ -5,8 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-
-import java.lang.constant.Constable;
+import steps.BaseSteps;
 
 public class InsuranceTravelPages {
 
@@ -20,7 +19,11 @@ public class InsuranceTravelPages {
         PageFactory.initElements(driver, this);
     }
 
-    public Constable getTitelTravelPages (){
+    public InsuranceTravelPages(){
+        PageFactory.initElements(BaseSteps.getDriver(), this);
+    }
+
+    public String getTitelTravelPages (){
         return titelTravelPages.getText();
     }
 

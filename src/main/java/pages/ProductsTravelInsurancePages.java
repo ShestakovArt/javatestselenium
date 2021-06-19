@@ -9,6 +9,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import steps.BaseSteps;
 
 import java.util.Random;
 
@@ -80,6 +81,10 @@ public class ProductsTravelInsurancePages extends BasePage{
 
     public String getTitelTravelPages (){
         return titelTravelPages.getText();
+    }
+
+    public ProductsTravelInsurancePages(){
+        PageFactory.initElements(BaseSteps.getDriver(), this);
     }
 
     public void buttonClick (String buttonName){

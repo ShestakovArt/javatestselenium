@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import steps.BaseSteps;
 
 public class InsurancePages {
 
@@ -16,6 +17,10 @@ public class InsurancePages {
 
     public InsurancePages(WebDriver driver){
         PageFactory.initElements(driver, this);
+    }
+
+    public InsurancePages(){
+        PageFactory.initElements(BaseSteps.getDriver(), this);
     }
 
     public void selectFilter (String filterItem){
