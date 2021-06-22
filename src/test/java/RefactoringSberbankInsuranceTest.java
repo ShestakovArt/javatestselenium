@@ -11,21 +11,22 @@ import static org.junit.Assert.assertEquals;
 public class RefactoringSberbankInsuranceTest extends BaseTest{
 
     @Test
+    @Ignore
     public void newTestInsuranceFieldNotFilled() {
         driver.get(baseUrl);
-        MainPages mainPages = new MainPages(driver);
+        MainPages mainPages = new MainPages();
         mainPages.selectMainMenu("Страхование");
         mainPages.selectSubMenu("Все страховые программы");
 
-        InsurancePages insurancePages = new InsurancePages(driver);
+        InsurancePages insurancePages = new InsurancePages();
         insurancePages.selectFilter("Путешествия");
         insurancePages.selectTitel("Страхование для путешественников");
 
-        InsuranceTravelPages insuranceTravelPages = new InsuranceTravelPages(driver);
+        InsuranceTravelPages insuranceTravelPages = new InsuranceTravelPages();
         assertEquals("Страхование путешественников", insuranceTravelPages.getTitelTravelPages());
         insuranceTravelPages.buttonClick();
 
-        ProductsTravelInsurancePages productsTravelInsurancePages = new ProductsTravelInsurancePages(driver);
+        ProductsTravelInsurancePages productsTravelInsurancePages = new ProductsTravelInsurancePages();
         assertEquals("Минимальная", productsTravelInsurancePages.getTitelTravelPages());
         productsTravelInsurancePages.buttonClick("Оформить");
 

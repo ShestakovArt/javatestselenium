@@ -10,7 +10,7 @@ public class MainSteps {
         new MainPages().selectMainMenu(mainMenu);
     }
 
-    @Step("Выбран подпункт меню {0}")
+
     public void selectSubMenu (String mainMenu){
         new MainPages().selectSubMenu(mainMenu);
     }

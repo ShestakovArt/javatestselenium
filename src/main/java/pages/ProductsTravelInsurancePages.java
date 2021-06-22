@@ -1,5 +1,7 @@
 package pages;
 
+import io.qameta.allure.Step;
+import managers.DriverManager;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -9,11 +11,12 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import steps.BaseSteps;
 
+import java.util.HashMap;
 import java.util.Random;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 
 public class ProductsTravelInsurancePages extends BasePage{
@@ -75,18 +78,17 @@ public class ProductsTravelInsurancePages extends BasePage{
     @FindBy(xpath = "//div[@class ='alert-form alert-form-error']")
     WebElement moduleErrorMessage;
 
-    public ProductsTravelInsurancePages(WebDriver driver){
-        PageFactory.initElements(driver, this);
-    }
-
     public String getTitelTravelPages (){
         return titelTravelPages.getText();
     }
 
-    public ProductsTravelInsurancePages(){
-        PageFactory.initElements(BaseSteps.getDriver(), this);
+    @Step("Выбираем сумму страховой защиты \"{0}\"")
+    public void amountInsuranceCoverage (String expectedTitle){
+        String actualTitle = getTitelTravelPages();
+        assertTrue(String.format("Сумма страховой защиты [%s]. Ожидалось - [%s]", actualTitle, expectedTitle), actualTitle.contains(expectedTitle));
     }
 
+    @Step("Нажимаем на кнопку \"{0}\"")
     public void buttonClick (String buttonName){
         switch (buttonName){
             case("Оформить"):
@@ -98,6 +100,7 @@ public class ProductsTravelInsurancePages extends BasePage{
         }
     }
 
+    @Step("Поле {0} заполняется значением {1}")
     public void fillField(String fieldName, String value){
         switch (fieldName){
             case("Фамилия(Застрахованные)"):
@@ -134,6 +137,11 @@ public class ProductsTravelInsurancePages extends BasePage{
                 fillField(documentIssue, value);
                 break;
         }
+    }
+
+    @Step("Заполняются поля")
+    public void fillFields(HashMap<String, String> fields){
+        fields.forEach((k, v)-> fillField(k,v));
     }
 
     public void randomGender() {
@@ -182,6 +190,19 @@ public class ProductsTravelInsurancePages extends BasePage{
         return valueAttribute;
     }
 
+    @Step("поля заполнены верно")
+    public void checkFillFields(HashMap<String, String> fields){
+        fields.forEach((k, v)-> checkFillField(k,v));
+    }
+
+    @Step("поле {0} заполнено значением {1}")
+    public void checkFillField(String field, String value) {
+        String actual = new ProductsTravelInsurancePages().getFieldAttribute(field);
+        assertTrue(String.format("Значение поля [%s] равно [%s]. Ожидалось - [%s]", field, actual, value),
+                actual.equals(value));
+    }
+
+    @Step("в поле {0} присутствует сообщение об ошибке {1}")
     public void checkControlMessage(String nameField,String controlMessage){
         String checkField = new String();
         switch (nameField){
@@ -198,6 +219,7 @@ public class ProductsTravelInsurancePages extends BasePage{
         assertEquals(controlMessage, checkField);
     }
 
+    @Step("На странице присутствует сообщение об ошибке {0}")
     public void checkErrorMesage (String errorMessage){
         assertEquals(errorMessage, moduleErrorMessage.getText());
     }

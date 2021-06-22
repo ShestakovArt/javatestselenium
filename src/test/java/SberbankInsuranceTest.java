@@ -28,6 +28,7 @@ public class SberbankInsuranceTest {
     }
 
     @Test
+    @Ignore
     public void testInsuranceFieldNotFilled(){
         driver.get(baseUrl);
         driver.findElement(By.xpath("//input[@id = 'kitt-top-menu-8']/../a[contains(text(), 'Страхование')]")).click();

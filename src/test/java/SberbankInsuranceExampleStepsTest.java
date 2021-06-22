@@ -1,15 +1,20 @@
 import io.qameta.allure.junit4.DisplayName;
+import org.junit.Ignore;
 import org.junit.Test;
+import pages.InsurancePages;
+import pages.InsuranceTravelPages;
+import pages.MainPages;
+import pages.ProductsTravelInsurancePages;
 import steps.*;
 
 import java.util.HashMap;
 
-public class SberbankInsuranceExampleStepsTest extends BaseSteps {
+public class SberbankInsuranceExampleStepsTest extends BaseTest {
 
-    MainSteps mainSteps = new MainSteps();
-    InsuranceSteps insuranceSteps = new InsuranceSteps();
-    InsuranceTravelSteps insuranceTravelSteps = new InsuranceTravelSteps();
-    ProductsTravelInsuranceSteps productsTravelInsuranceSteps= new ProductsTravelInsuranceSteps();
+    MainPages mainSteps = new MainPages();
+    InsurancePages insuranceSteps = new InsurancePages();
+    InsuranceTravelPages insuranceTravelSteps = new InsuranceTravelPages();
+    ProductsTravelInsurancePages productsTravelInsuranceSteps= new ProductsTravelInsurancePages();
 
     HashMap<String, String> testData = new HashMap<>();
 
@@ -28,25 +33,23 @@ public class SberbankInsuranceExampleStepsTest extends BaseSteps {
         testData.put("Дата выдачи(Страхователь)", "15.08.2017");
         testData.put("Кем выдан(Страхователь)", "УФМС России");
 
-        mainSteps.selectMenuItem("Страхование");
+        mainSteps.selectMainMenu("Страхование");
         mainSteps.selectSubMenu("Все страховые программы");
         insuranceSteps.selectFilter("Путешествия");
         insuranceSteps.selectTitel("Страхование для путешественников");
         insuranceTravelSteps.checkPageTitle("Страхование путешественников");
         insuranceTravelSteps.buttonClick();
 
-        productsTravelInsuranceSteps.amountInsuranceCoverage("Минимальная");
+        productsTravelInsuranceSteps.amountInsuranceCoverage("Минимальнаа");
         productsTravelInsuranceSteps.buttonClick("Оформить");
 
         productsTravelInsuranceSteps.fillFields(testData);
         productsTravelInsuranceSteps.checkFillFields(testData);
         productsTravelInsuranceSteps.buttonClick("Продолжить");
 
-        productsTravelInsuranceSteps.checkErrorMessageField("Мобильный телефон", "Поле не заполнено.");
-        productsTravelInsuranceSteps.checkErrorMessageField("Электронная почта", "Поле не заполнено.");
-        productsTravelInsuranceSteps.checkErrorMessageField("Повтор электронной почты", "Поле не заполнено.");
-        productsTravelInsuranceSteps.checkError("При заполнении данных произошла ошибка");
-
-
+        productsTravelInsuranceSteps.checkControlMessage("Мобильный телефон", "Поле не заполнено.");
+        productsTravelInsuranceSteps.checkControlMessage("Электронная почта", "Поле не заполнено.");
+        productsTravelInsuranceSteps.checkControlMessage("Повтор электронной почты", "Поле не заполнено.");
+        productsTravelInsuranceSteps.checkErrorMesage("При заполнении данных произошла ошибка");
     }
 }

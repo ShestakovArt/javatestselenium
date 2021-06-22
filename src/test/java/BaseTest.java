@@ -1,31 +1,30 @@
+import managers.DriverManager;
+import managers.TestProperties;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 
-import java.util.NoSuchElementException;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 public class BaseTest {
-    protected static WebDriver driver;
+    protected WebDriver driver = DriverManager.getDriver();
     public static Properties properties = TestProperties.getInstance().getProperties();
     protected static String baseUrl;
 
     @BeforeClass
     public static void setUp() {
-        System.setProperty("webdriver.chrome.driver", properties.getProperty("webdriver.chrome.driver"));
-        driver = new ChromeDriver();
         baseUrl = "http://www.sberbank.ru/ru/person";
-        driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
-        driver.manage().window().maximize();
+        DriverManager.getDriver().manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+        DriverManager.getDriver().manage().window().maximize();
+        DriverManager.getDriver().get(baseUrl);
     }
 
     @AfterClass
     public static void tearDown() {
-        driver.quit();
+        DriverManager.getDriver().quit();
     }
 
     protected void fillField(By locator, String value) {
